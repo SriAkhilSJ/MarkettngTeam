@@ -1,0 +1,2 @@
+Platform,Format,Hook,Caption,Status,Day,Time,PublishMode,Views,Likes,Comments,Shares,Saves,Clicks,WatchTimeSec,Notes
+Instagram Carousel,"Carousel (max 7 slides)",EXAMPLE: Stop overcomplicating AI automations. Here's the simple version.,"Hook / Value / CTA / Hashtags",DRAFT,Monday,09:00,scheduler,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Delete this example row. Status flow: DRAFT > READY > APPROVED > SCHEDULED > PUBLISHED (or FAILED). Missing metric = N/A, never guess."
