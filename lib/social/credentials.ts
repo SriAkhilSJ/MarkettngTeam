@@ -69,7 +69,10 @@ export function checkCredentials(platformId: string, bag: TokenBag): CredentialC
       return { configured: missing.length === 0, missing, source: t.source };
     }
     case "threads": {
-      const t = resolveToken(bag, "threads", ["THREADS_ACCESS_TOKEN", "META_ACCESS_TOKEN"]);
+      // Threads API tokens are separate from Graph tokens — a META_ACCESS_TOKEN
+      // fails with "Cannot parse access token" on graph.threads.net, so it does
+      // NOT count as configured here (threads_app_id may still fall back below).
+      const t = resolveToken(bag, "threads", ["THREADS_ACCESS_TOKEN"]);
       const missing = t.token ? [] : ["THREADS_ACCESS_TOKEN (or Connect)", "THREADS_APP_ID, THREADS_APP_SECRET (for Connect)"];
       return { configured: missing.length === 0, missing, source: t.source };
     }

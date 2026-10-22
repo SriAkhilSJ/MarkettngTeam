@@ -93,7 +93,24 @@ export const linkedinIntegration: PlatformIntegration = {
       const { data } = await fetchJson(`${base()}/v2/userinfo`, { provider: PROVIDER, headers: { Authorization: `Bearer ${token}` } });
       return { ...baseOut, ok: true, account: str(data.name) || str(data.email), message: `LinkedIn connection OK (API version ${apiVersion()}).` };
     } catch (err) {
-      return { ...baseOut, ok: false, message: "LinkedIn rejected the test call (token may be expired — LinkedIn tokens last ~60 days).", error: errMessage(err) };
+      const status = err instanceof SocialApiError ? err.status : 0;
+      const msg = errMessage(err);
+      // Tokens minted without OpenID scopes cannot read /v2/userinfo but may
+      // still post fine (w_member_social). If LINKEDIN_AUTHOR_URN is set,
+      // verify the token via a posts read instead of giving up.
+      if (status === 403 && env("LINKEDIN_AUTHOR_URN")) {
+        try {
+          const token = await linkedinAccessToken(bag);
+          await fetchJson(`${base()}/rest/posts?q=author&author=${encodeURIComponent(env("LINKEDIN_AUTHOR_URN")!)}&elements-per-page=1`, { provider: PROVIDER, headers: headers(token) });
+          return { ...baseOut, ok: true, account: env("LINKEDIN_AUTHOR_URN"), message: `LinkedIn OK (verified via posts read; LINKEDIN_AUTHOR_URN honored). API version ${apiVersion()}.` };
+        } catch { /* fall through to the not-verified result */ }
+      }
+      const hint = status === 403
+        ? " The token exists but lacks OpenID scopes for profile reads. Either reconnect with the Connect button, or set LINKEDIN_AUTHOR_URN=urn:li:person:{id} in .env.local (copy {id} from any of your post URNs in native LinkedIn analytics) and test again."
+        : status >= 400 && status < 500
+          ? " If this is 401/invalid_token, the token expired — LinkedIn tokens last ~60 days."
+          : "";
+      return { ...baseOut, ok: false, message: `LinkedIn rejected the test call.${hint}`, error: msg };
     }
   },
   publish: async (post, bag, opts) => {

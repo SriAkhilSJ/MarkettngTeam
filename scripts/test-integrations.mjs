@@ -69,6 +69,28 @@ const CRED_ENV = {
   REDDIT_USER_AGENT: "web:auto-marketing-team:v0.2.0 (by /u/tester)",
 };
 
+// Every secret-ish key the app reads, so a developer's real .env.local can
+// never leak into a test run: Next.js loads .env.local into the spawned
+// server's process, but process.env values take precedence — blanking them
+// forces "nothing configured" (empty strings are treated as absent by the app).
+const SECRET_KEYS = [
+  "META_APP_ID", "META_APP_SECRET", "META_ACCESS_TOKEN", "INSTAGRAM_BUSINESS_ACCOUNT_ID",
+  "THREADS_APP_ID", "THREADS_APP_SECRET", "THREADS_ACCESS_TOKEN", "THREADS_USER_ID",
+  "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "YOUTUBE_REFRESH_TOKEN", "YOUTUBE_ACCESS_TOKEN",
+  "LINKEDIN_CLIENT_ID", "LINKEDIN_CLIENT_SECRET", "LINKEDIN_ACCESS_TOKEN", "LINKEDIN_AUTHOR_URN", "LINKEDIN_API_VERSION",
+  "TIKTOK_CLIENT_KEY", "TIKTOK_CLIENT_SECRET", "TIKTOK_ACCESS_TOKEN", "TIKTOK_REFRESH_TOKEN",
+  "X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET", "X_CLIENT_ID", "X_CLIENT_SECRET", "X_BEARER_TOKEN",
+  "PINTEREST_APP_ID", "PINTEREST_APP_SECRET", "PINTEREST_ACCESS_TOKEN", "PINTEREST_REFRESH_TOKEN",
+  "REDDIT_CLIENT_ID", "REDDIT_CLIENT_SECRET", "REDDIT_ACCESS_TOKEN", "REDDIT_REFRESH_TOKEN",
+  "REDDIT_USERNAME", "REDDIT_PASSWORD", "REDDIT_SUBREDDIT",
+];
+
+function blankEnv() {
+  const o = {};
+  for (const k of SECRET_KEYS) o[k] = "";
+  return o;
+}
+
 function cleanEnv(extra) {
   const env = {};
   for (const [k, v] of Object.entries(process.env)) {
@@ -136,7 +158,9 @@ async function run() {
   boot(process.execPath, ["scripts/mock-social-server.mjs"], cleanEnv({ MOCK_PORT: String(MOCK_PORT), X_API_SECRET: CRED_ENV.X_API_SECRET, X_ACCESS_TOKEN_SECRET: CRED_ENV.X_ACCESS_TOKEN_SECRET }), "mock");
   await waitFor(`${MOCK}/__requests`, "mock server");
 
-  const appEnv = NOAUTH ? cleanEnv({ AI_PROVIDER: "demo", NEXT_PUBLIC_APP_URL: APP }) : cleanEnv(CRED_ENV);
+  const appEnv = NOAUTH
+    ? cleanEnv({ ...blankEnv(), AI_PROVIDER: "demo", NEXT_PUBLIC_APP_URL: APP })
+    : cleanEnv({ ...blankEnv(), ...CRED_ENV });
   boot(process.execPath, ["node_modules/next/dist/bin/next", "start", "-p", String(APP_PORT), "-H", "127.0.0.1"], appEnv, "app");
   await waitFor(`${APP}/api/health`, "next app");
 

@@ -176,7 +176,14 @@ export async function downloadMedia(rawUrl: string, provider: string, maxMb = 10
 }
 
 export function errMessage(err: unknown): string {
-  if (err instanceof SocialApiError) return err.message;
+  if (err instanceof SocialApiError) {
+    // Append provider's raw error body when it adds info the user needs
+    // (e.g. Google's invalid_grant description, LinkedIn's blocked details).
+    if (err.details && !err.message.includes(err.details.slice(0, 80))) {
+      return `${err.message} — details: ${err.details}`;
+    }
+    return err.message;
+  }
   return err instanceof Error ? err.message : "Unknown error";
 }
 

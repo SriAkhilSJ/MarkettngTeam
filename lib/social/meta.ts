@@ -79,7 +79,17 @@ async function igTest(platformId: string, bag: TokenBag): Promise<ConnectionTest
     }
     return { ...base, ok: false, message: "Token works but no Instagram Business/Creator account is linked to your Facebook Pages." };
   } catch (err) {
-    return { ...base, ok: false, message: "Meta rejected the test call.", error: errMessage(err) };
+    const msg = errMessage(err);
+    if (/API access blocked/i.test(msg)) {
+      return {
+        ...base,
+        ok: false,
+        message:
+          "Meta blocked API access for this call — this is an app-configuration issue, not a code issue. Fix in developers.facebook.com: (1) put the app in Development mode, (2) add your Facebook account as admin/tester under App Roles, (3) confirm the IG account is linked to a Facebook Page, (4) generate the token against THIS app (Graph API Explorer → your app), not another app.",
+        error: msg,
+      };
+    }
+    return { ...base, ok: false, message: "Meta rejected the test call.", error: msg };
   }
 }
 
@@ -187,7 +197,8 @@ export const instagramIntegration = (platformId: string): PlatformIntegration =>
 /* ============================== THREADS ============================== */
 
 function threadsCreds(bag: TokenBag): { token?: string; userId: string } {
-  const t = resolveToken(bag, "threads", ["THREADS_ACCESS_TOKEN", "META_ACCESS_TOKEN"]);
+  // Threads rejects Graph tokens ("Cannot parse access token") — THREADS token only.
+  const t = resolveToken(bag, "threads", ["THREADS_ACCESS_TOKEN"]);
   return { token: t.token, userId: env("THREADS_USER_ID") || bag.threads?.accountId || "me" };
 }
 
