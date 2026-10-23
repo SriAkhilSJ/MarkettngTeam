@@ -112,7 +112,9 @@ async function callOpenAICompatible(
       model: process.env.OPENROUTER_MODEL || "meta-llama/llama-3.3-70b-instruct:free",
     },
     openai: {
-      url: "https://api.openai.com/v1/chat/completions",
+      // Override OPENAI_BASE_URL to use any OpenAI-compatible gateway
+      // (e.g. Velona: OPENAI_BASE_URL=https://velona.in/v1).
+      url: `${(process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/+$/, "")}/chat/completions`,
       key: process.env.OPENAI_API_KEY || "",
       model: process.env.OPENAI_MODEL || "gpt-4o-mini",
     },
