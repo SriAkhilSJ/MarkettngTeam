@@ -169,6 +169,26 @@ export default function HomePage() {
     } finally { setBusy((b) => ({ ...b, [p.id]: false })); }
   }
 
+  /** Render a storyboard/text post into branded carousel PNGs (hosted on S3 when creds exist). */
+  function canRender(p: Post): boolean {
+    return p.platformId === "instagram-carousel" || p.platformId === "pinterest";
+  }
+  async function renderSlides(p: Post) {
+    setBusy((b) => ({ ...b, [p.id]: true })); setError("");
+    try {
+      const { res, data } = await guardedFetch("/api/render", { id: p.id, post: p });
+      if (!res.ok) throw new Error((data.error as string) || `Render failed (${res.status})`);
+      const urls = (data.urls as string[]) || [];
+      updatePost(p.id, { mediaUrls: urls });
+      const parts = [`${urls.length} slide(s) rendered`];
+      if (data.hosted) parts.push("and uploaded to S3 ✅ — ready to publish");
+      else parts.push("locally — fine for preview/Dry run; for live publishing either add S3 creds or host images publicly");
+      setNotice(parts.join(" — "));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Render failed");
+    } finally { setBusy((b) => ({ ...b, [p.id]: false })); }
+  }
+
   async function publishAllApproved() {
     const due = posts.filter((p) => p.status === "APPROVED" || p.status === "SCHEDULED");
     if (!due.length) { setError("No APPROVED/SCHEDULED posts to publish."); return; }
@@ -344,6 +364,7 @@ export default function HomePage() {
                   <span className="badge mode">{integ?.configured ? `🔌 API connected${integ.source ? ` (${integ.source})` : ""}` : "✋ Manual / not connected"}</span>
                   <span className="spacer" />
                   <button className="btn ghost small" onClick={() => copyForPosting(p)}>📋 Copy</button>
+                  {canRender(p) && <button className="btn ghost small" disabled={busy[p.id]} title="Turn this post into branded carousel PNGs and attach them as Media URLs" onClick={() => renderSlides(p)}>🎨 Render slides</button>}
                   <button className="btn ghost small" disabled={busy[p.id]} onClick={() => publishViaApi(p, true)}>🧪 Dry run</button>
                   <button className="btn small" disabled={busy[p.id] || !canPublish} title={canPublish ? "Publish live via official API" : "Set status to APPROVED first"} onClick={() => publishViaApi(p, false)}>🚀 Publish via API</button>
                 </div>

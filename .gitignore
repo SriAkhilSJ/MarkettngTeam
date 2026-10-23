@@ -27,3 +27,7 @@ npm-debug.log*
 
 # local data
 data/
+
+# rendered media + generated outputs
+public/rendered/
+output/
