@@ -1,0 +1,90 @@
+slug: crusor-ai-ide
+brand:
+  name: Crusor AI IDE
+  url: https://www.crusor.in
+  tagline: 'Crusor AI: Build and Ship with Ease'
+  value_prop: An AI-powered IDE that helps developers build, test, debug, and ship
+    software faster with intelligent agents.
+  color: '#FFFFFF'
+  logo_letter: C
+  logo_suffix: ''
+  features:
+  - Autonomous AI Agent — Plan, Build, Debug & Execute
+  - Smart Context Engine — Understands the Entire Codebase
+  - Multi-Agent Workflow — Parallel Agents for Complex Tasks
+  - AI Code Generation & Editing
+  - AI UI Editing — Visually Modify & Refine Interfaces
+  - Live UI Preview — See Changes Instantly While Editing
+  - Web Agent Testing — Test & Verify Web Applications
+  - Android Agent Testing — Test & Verify Android Applications
+  - Desktop Agent Testing — Test & Verify Desktop Applications
+  - Verification & Testing — Tests and Verifies Generated Work
+  - Web & SaaS Development
+  - Android App Development
+  - Desktop App Development
+  - Deployment Workflow — Build, Test & Deploy
+  - MCP & Tool Integrations
+  - Safety & Approval Controls
+  - Multi-LLM Support — No Single-Model Lock-In
+  - AgentOps — Monitor Sessions, Tools, Tokens & Costs
+target_customer:
+  description: AI-native developers, students, startups, and small engineering teams
+    who want to build, test, and ship software faster in one desktop IDE.
+  pain_points:
+  - AI can generate code quickly, but testing, debugging, deployment, and maintenance
+    are still difficult.
+  - Generated code can look finished in a demo but still requires verification before
+    production.
+  - Building across Web, Android, Desktop, and Backend often requires switching between
+    different workflows and tools.
+  - AI coding tools accelerate code generation but do not fully handle the end-to-end
+    journey from building to verified software.
+  - AI tools can generate code quickly, but developers still have to manually test
+    whether it actually works.
+  - UI bugs can remain hidden because generated code is not automatically tested against
+    the real user interface.
+  - Developers must manually find bugs, reproduce failures, and debug issues after
+    code is generated.
+  - There is a gap between AI-generated code and software that has actually been tested
+    and verified.
+  keywords:
+  - AI coding
+  - AI IDE
+  - AI-native development
+  - Agentic coding
+  - Autonomous AI agents
+  - AI software development
+  - AI code generation
+  - AI code editing
+  - AI UI editing
+  - AI-powered development
+  - Codebase context
+  - Smart context
+  - Multi-agent workflows
+  - AI debugging
+  - Automated testing
+  - UI testing
+  - Agent testing
+  - Software verification
+  - Web development
+  - Android development
+  - Desktop development
+  - SaaS development
+  - AI developer tools
+  - Developer productivity
+  - Build test deploy
+  - AI development workflow
+  - MCP integrations
+  - Multi-LLM
+  platforms:
+  - twitter
+  - reddit
+  - instagram
+  - linkedin
+  - youtube
+  - facebook
+  - threads
+default_persona: crusor-ai
+env_overrides:
+  TWITTER_USERNAME: crusorai
+  SMTP_FROM_NAME: Crusor AI

@@ -1,0 +1,94 @@
+influencers:
+- '@karpathy'
+- '@svpino'
+- '@swyx'
+- '@levelsio'
+- '@rauchg'
+hashtags:
+- '#AI'
+- '#AICoding'
+- '#AIIDE'
+- '#Coding'
+- '#CodingAgents'
+- '#AgenticAI'
+- '#AIEngineering'
+- '#DeveloperTools'
+- '#DevTools'
+- '#SoftwareDevelopment'
+- '#DeveloperProductivity'
+- '#BuildInPublic'
+- '#IndieHackers'
+- '#Startups'
+- '#SaaS'
+- '#WebDevelopment'
+- '#AndroidDevelopment'
+- '#DesktopDevelopment'
+- '#AITools'
+company_accounts:
+- '@cursor_ai'
+- '@windsurf'
+- '@codeium'
+- '@GitHub'
+- '@AnthropicAI'
+- '@OpenAI'
+- '@GoogleDeepMind'
+- '@Replit'
+- '@vercel'
+- '@emergent'
+search_queries:
+- '"AI wrote this" (bug OR broken OR "doesn''t work" OR failed) -is:retweet lang:en'
+- (cursor OR windsurf OR copilot OR "claude code") (test OR testing OR broke OR debugging)
+  -is:retweet lang:en
+- ("my AI agent" OR "coding agent") (hallucinat OR "doesn't compile" OR "wrong file")
+  -is:retweet lang:en
+- '"vibe coded" OR "vibe coding" (bug OR bugs OR broken OR "shipped broken") -is:retweet
+  lang:en'
+- (android OR "react native" OR flutter) (AI OR agent) (test OR emulator OR broken)
+  -is:retweet lang:en
+- '"UI testing" OR "e2e tests" OR "integration tests" (AI OR agent OR generated) -is:retweet
+  lang:en'
+bio_blocklist:
+- crypto
+- forex
+- nft
+- dropship
+- casino
+- betting
+- onlyfans
+- giveaway
+- follow back
+- dm for promo
+bio_require_any:
+- developer
+- engineer
+- 'dev '
+- software
+- coding
+- programmer
+- founder
+- indie hacker
+- indiehacker
+- swe
+- sre
+- devops
+- full stack
+- fullstack
+- frontend
+- backend
+- android
+- mobile dev
+- saas
+- build in public
+- ai
+- llm
+- ml
+- ship
+messaging:
+  tone: professional, confident, clear, practical, and developer-focused
+  max_messages: 10
+  max_message_length: 280
+  min_delay_seconds: 120
+  max_delay_seconds: 300
+  pause_every_n: 5
+  long_pause_seconds: 600
+  reference_post: true

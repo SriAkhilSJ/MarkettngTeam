@@ -1,0 +1,157 @@
+id: dev_workflow_demo
+name: "AI Wrote It. Did It Pass?"
+aspect_ratio: "9:16"
+fps: 30
+composition_id: ReelFromTemplate
+
+# Phase 9 signature object. Copied from MarketMeNow's own
+# projects/gradeasy/templates/reels/can_ai_grade_this.yaml so the loader,
+# the Remotion scenes and the TTS step all agree.
+default_visual:
+  brand_color: "#FFFFFF"
+  brand_name: "Crusor AI IDE"
+  brand_suffix: ""
+  font_family: "system-ui, sans-serif"
+  panel_background: "#0A0A0A"
+  frame_background: "#111111"
+
+variables:
+  - dev_handle
+  - dev_avatar
+  - dev_comment
+  - failure_text
+  - verification_text
+
+caption_template: |
+  The code compiled. The screen didn't.
+
+  {{ failure_text }}
+
+  One agent writes it. Another one tests it. That's the whole difference.
+
+  Crusor AI IDE — plan, build, test, verify, ship.
+  crusor.in
+
+hashtags:
+  - AICoding
+  - AIIDE
+  - CodingAgents
+  - DevTools
+  - BuildInPublic
+
+hook_lines:
+  - "the AI said it was done"
+  - "it compiled. it was still broken."
+  - "shipped it. broke production. again."
+  - "my agent wrote 400 lines and no tests"
+  - "looks done in the demo, dies in prod"
+  - "who tests the code the agent wrote?"
+  - "the agent said 'done'. the screen said otherwise."
+  - "everyone's vibe coding. nobody's verifying."
+
+beats:
+  - id: hook_text
+    scene: HookScene
+    entry_transition:
+      type: fade
+      duration_frames: 8
+    audio:
+      type: tts
+      text: "{{ hook_line }}"
+      voice: "{{ narrator_voice_id }}"
+    duration: from_audio
+    pad_seconds: 0.15
+    visual:
+      text_overlay: "{{ hook_line }}"
+      background: "linear-gradient(160deg, #0A0A0A, #1A1A1A)"
+      text_color: "#FFFFFF"
+      font_size: 56
+
+  - id: dev_comment
+    scene: TikTokCommentScene
+    entry_transition:
+      type: slide
+      duration_frames: 10
+      direction: up
+    audio:
+      type: tts
+      text: "{{ dev_comment }}"
+      voice: "{{ dev_voice_id }}"
+    duration: from_audio
+    pad_seconds: 0.1
+    visual:
+      username: "{{ dev_handle }}"
+      avatar: "{{ dev_avatar }}"
+      comment_text: "{{ dev_comment }}"
+      show_image: false
+
+  - id: failure_reveal
+    scene: RevealScene
+    entry_transition:
+      type: scale
+      duration_frames: 8
+    audio:
+      type: tts
+      text: "{{ failure_text }}"
+      voice: "{{ narrator_voice_id }}"
+    duration: from_audio
+    pad_seconds: 0.1
+    visual:
+      headline: "What actually happened"
+      body: "{{ failure_text }}"
+      accent: "#FF5A5F"
+
+  - id: verification
+    scene: ResultScene
+    entry_transition:
+      type: wipe
+      duration_frames: 10
+    audio:
+      type: tts
+      text: "{{ verification_text }}"
+      voice: "{{ narrator_voice_id }}"
+    duration: from_audio
+    pad_seconds: 0.15
+    visual:
+      grade: "PASS"
+      feedback: "{{ verification_text }}"
+      header: "Verification run"
+      background: "#0A0A0A"
+
+  - id: brand_cta
+    scene: BrandCTAScene
+    entry_transition:
+      type: spring
+      duration_frames: 12
+    audio:
+      type: sfx
+      file: ""
+      text: ""
+    duration: fixed
+    fixed_seconds: 2.0
+    visual:
+      brand_name: "Crusor AI IDE"
+      brand_suffix: ""
+      brand_color: "#FFFFFF"
+      cta_text: "Plan. Build. Test. Verify. Ship."
+
+pipeline:
+  steps:
+    - id: pick_hook
+      type: pick_from_list
+      inputs:
+        source: hook_lines
+      output_var: hook_line
+
+    - id: write_comment
+      type: llm
+      inputs:
+        prompt: prompts/instagram/script_generation.yaml
+        context: "A developer complaining that AI-generated code looked finished but failed in real use."
+      output_var: comment_block
+      output_fields:
+        - dev_comment
+        - failure_text
+        - verification_text
+
+worksheet: null

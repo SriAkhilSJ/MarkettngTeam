@@ -1,0 +1,28 @@
+items:
+- platform: instagram
+  command_type: reel
+  params:
+    template: dev_workflow_demo
+- platform: instagram
+  command_type: carousel
+  count: 2
+- platform: twitter
+  command_type: thread
+- platform: twitter
+  command_type: engage
+- platform: twitter
+  command_type: outreach
+  params:
+    profile: campaigns/twitter-outreach.yaml
+- platform: linkedin
+  command_type: post
+- platform: facebook
+  command_type: post
+- platform: reddit
+  command_type: engage
+- platform: youtube
+  command_type: short
+  count: 1
+- platform: tiktok
+  command_type: upload
+  count: 1

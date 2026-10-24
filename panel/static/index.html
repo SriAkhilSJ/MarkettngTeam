@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Crusor Control Panel</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">C</div>
+    <div>
+      <h1 id="brandName">Crusor AI IDE</h1>
+      <p class="sub" id="tagline">loading…</p>
+    </div>
+  </div>
+  <div class="status" id="status">—</div>
+</header>
+
+<main>
+  <section class="col">
+    <h2>1 · Draft</h2>
+    <label for="platform">Platform</label>
+    <select id="platform"></select>
+
+    <label for="idea">Idea / angle</label>
+    <textarea id="idea" rows="4" placeholder="the part the demo skips: it compiled, then broke">The code compiled. The screen didn't.</textarea>
+
+    <button id="draftBtn">Draft (agent action)</button>
+    <p class="hint">Only allowed actions can run. <code>publish_to_platform</code> does not exist in this codebase.</p>
+  </section>
+
+  <section class="col">
+    <h2>2 · Voice gate</h2>
+    <div id="scoreBox" class="empty">Run a draft to score it.</div>
+  </section>
+
+  <section class="col">
+    <h2>3 · Approval queue</h2>
+    <div id="queue" class="empty">Nothing queued.</div>
+  </section>
+
+  <section class="col wide">
+    <h2>Permission surface</h2>
+    <table id="perms">
+      <thead><tr><th>Action</th><th>Scope</th><th>Mutates</th><th>Why</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <h2 class="locked-title">Locked</h2>
+    <ul id="locked" class="locked"></ul>
+  </section>
+</main>
+
+<footer>
+  <span id="footnote">Crusor Control Panel · local only</span>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>

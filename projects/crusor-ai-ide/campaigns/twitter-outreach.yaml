@@ -1,0 +1,126 @@
+platform: twitter
+product:
+  name: Crusor AI IDE
+  url: https://www.crusor.in
+  tagline: 'Crusor AI: Build and Ship with Ease'
+  value_prop: An AI-powered IDE that helps developers build, test, debug, and ship
+    software faster with intelligent agents.
+ideal_customer:
+  description: AI-native developers, students, startups, and small engineering teams
+    who want to build, test, and ship software faster in one desktop IDE.
+  rubric:
+  - name: AI/Developer Tool Relevance
+    description: How closely the person or account is connected to AI development,
+      developer tools, coding, or software engineering.
+    max_points: 10
+  - name: Active Developer or Builder
+    description: Shows active involvement in building software, AI products, applications,
+      or technical projects.
+    max_points: 10
+  - name: AI Coding / Agent Interest
+    description: Shows interest in AI coding tools, AI IDEs, coding agents, autonomous
+      agents, or AI-assisted development.
+    max_points: 10
+  - name: Relevant Pain Point
+    description: Experiences problems with testing, UI testing, debugging, verification,
+      fragmented workflows, or moving from generated code to working software.
+    max_points: 10
+  - name: Early Adopter Potential
+    description: Likely to try and provide feedback on a new AI-native development
+      tool.
+    max_points: 10
+  - name: Startup or SaaS Activity
+    description: Builds, runs, or works with startups, SaaS products, or software
+      businesses.
+    max_points: 10
+  - name: Audience Influence
+    description: Has a relevant developer, AI, startup, or technical audience that
+      could amplify Crusor.
+    max_points: 10
+  - name: Web, Android, or Desktop Development
+    description: Works on software across Web, Android, Desktop, or related application
+      development workflows.
+    max_points: 10
+  min_score: 50
+  max_prospects_to_enrich: 50
+  bio_blocklist:
+  - crypto
+  - forex
+  - nft
+  - dropship
+  - casino
+  - betting
+  - onlyfans
+  - giveaway
+  - follow back
+  - dm for promo
+  bio_require_any:
+  - developer
+  - engineer
+  - 'dev '
+  - software
+  - coding
+  - programmer
+  - founder
+  - indie hacker
+  - indiehacker
+  - swe
+  - sre
+  - devops
+  - full stack
+  - fullstack
+  - frontend
+  - backend
+  - android
+  - mobile dev
+  - saas
+  - build in public
+  - ai
+  - llm
+  - ml
+  - ship
+discovery:
+- type: pain_search
+  entries:
+  - '"AI wrote this" (bug OR broken OR "doesn''t work" OR failed) -is:retweet lang:en'
+  - (cursor OR windsurf OR copilot OR "claude code") (test OR testing OR broke OR
+    debugging) -is:retweet lang:en
+  - ("my AI agent" OR "coding agent") (hallucinat OR "doesn't compile" OR "wrong file")
+    -is:retweet lang:en
+  - '"vibe coded" OR "vibe coding" (bug OR bugs OR broken OR "shipped broken") -is:retweet
+    lang:en'
+  - (android OR "react native" OR flutter) (AI OR agent) (test OR emulator OR broken)
+    -is:retweet lang:en
+  - '"UI testing" OR "e2e tests" OR "integration tests" (AI OR agent OR generated)
+    -is:retweet lang:en'
+  max_per_entry: 5
+- type: conversation_mining
+  entries:
+  - '@karpathy'
+  - '@svpino'
+  - '@swyx'
+  - '@levelsio'
+  - '@rauchg'
+  max_per_entry: 5
+- type: hashtag_scan
+  entries:
+  - '#AI'
+  - '#AICoding'
+  - '#AIIDE'
+  - '#Coding'
+  - '#CodingAgents'
+  - '#AgenticAI'
+  - '#AIEngineering'
+  - '#DeveloperTools'
+  - '#DevTools'
+  - '#SoftwareDevelopment'
+  max_per_entry: 5
+messaging:
+  tone: professional, confident, clear, practical, and developer-focused
+  max_messages: 10
+  max_message_length: 280
+  min_delay_seconds: 120
+  max_delay_seconds: 300
+  pause_every_n: 5
+  long_pause_seconds: 600
+  reference_post: true

@@ -1,0 +1,26 @@
+name: crusor-ai
+description: Crusor AI is an AI-native desktop IDE that helps developers plan, build,
+  edit, test, debug, verify, and deploy software across Web, Android, Desktop, and
+  Backend.
+voice: confident, clear, technical, concise, and approachable
+tone: professional, confident, clear, practical, and developer-focused
+example_phrases:
+- Build it. Test it. Ship it.
+- AI that builds beyond the code.
+- From idea to verified software.
+- Build faster. Test smarter. Ship with confidence.
+- Your codebase. One intelligent agent.
+- Don't just generate code. Build software.
+- Plan. Build. Test. Verify. Ship.
+- One IDE. The entire development workflow.
+platform_overrides:
+  reddit:
+    voice: A working developer who ships, not a vendor
+    tone: Plain, specific, peer-to-peer. Talk about what breaks in practice. No launch
+      talk, no hashtags, no marketing cadence.
+  linkedin:
+    voice: Engineer-turned-builder explaining a workflow, not a pitch
+    tone: Measured, concrete, outcome-first. Technical detail over adjectives.
+  instagram:
+    voice: Short, visual, confident
+    tone: Punchy captions built around a single visible result.
